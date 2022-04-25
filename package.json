@@ -1,0 +1,25 @@
+{
+  "name": "cs4550project-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sangeetadhingra/CS4550Project-Node.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sangeetadhingra/CS4550Project-Node/issues"
+  },
+  "homepage": "https://github.com/sangeetadhingra/CS4550Project-Node#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.0",
+    "mongoose": "^6.3.1"
+  }
+}
