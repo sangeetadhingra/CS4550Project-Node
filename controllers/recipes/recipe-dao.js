@@ -1,8 +1,12 @@
 import recipeModel from "./recipe-model.js";
 
-export const findAllRecipesDao = () => {
-  recipeModel.find();
+export const findAllRecipesDao = async () => {
+  return await recipeModel.find();
 };
+export const findRecipeByIdDao = async (recipeID) => {
+  return await recipeModel.findOne({ rid: recipeID });
+};
+
 export const createRecipeDao = async (recipe) => {
   // Checking for duplicates
   const existingRecipe = await recipeModel.findOne({ rid: recipe.rid });
