@@ -23,7 +23,6 @@ export const createRecipeDao = async (recipe) => {
     console.log(e);
     return 500;
   }
-  console.log(recipe);
   return 201;
 };
 export const deleteRecipeDao = (recipeID) => {
@@ -35,36 +34,42 @@ export const updateRecipeDao = (recipeID, recipe) => {
   return 200;
 };
 export const likeRecipeDao = async (recipe) => {
+  console.log(recipe.rid)
   let existingRecipe = await recipeModel.findOne({ rid: recipe.rid });
   if (!existingRecipe) {
-    createRecipeDao(recipe);
+    try {
+      existingRecipe = recipeModel.create({
+        ...recipe,
+        likes: 1,
+        dislikes: 0,
+      });
+    } catch (e) {
+      console.log(e);
+    }
   }
-  recipeModel.updateOne(
-    { rid: recipe.rid },
-    { $set: { likes: recipe.likes + 1 } }
-  );
-  const likes = existingRecipe ? existingRecipe.likes + 1 : 1;
-  await recipeModel.updateOne({ rid: recipe.rid }, { $set: { likes: likes } });
+ else {
+  await recipeModel.updateOne({ rid: recipe.rid }, { $set: { likes: existingRecipe.likes + 1} });
   existingRecipe.likes++;
-  console.log(existingRecipe);
+  }
   return existingRecipe;
 };
 
 export const dislikeRecipeDao = async (recipe) => {
   let existingRecipe = await recipeModel.findOne({ rid: recipe.rid });
   if (!existingRecipe) {
-    createRecipeDao(recipe);
+    try {
+      existingRecipe = recipeModel.create({
+        ...recipe,
+        likes: 0,
+        dislikes: 1,
+      });
+    } catch (e) {
+      console.log(e);
+    }
   }
-  recipeModel.updateOne(
-    { rid: recipe.rid },
-    { $set: { dislikes: recipe.dislikes + 1 } }
-  );
-  const dislikes = existingRecipe ? existingRecipe.dislikes + 1 : 1;
-  await recipeModel.updateOne(
-    { rid: recipe.rid },
-    { $set: { dislikes: dislikes } }
-  );
+ else {
+  await recipeModel.updateOne({ rid: recipe.rid }, { $set: { dislikes: existingRecipe.dislikes + 1} });
   existingRecipe.dislikes++;
-  console.log(existingRecipe);
+  }
   return existingRecipe;
 };

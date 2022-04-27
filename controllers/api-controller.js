@@ -33,7 +33,7 @@ const API_BASE = process.env.REACT_APP_API_BASE ? process.env.REACT_APP_API_BASE
 
   export default (app) => {
     app.get("/api/api/:name", searchRecipeByName);
-    app.get("/api/api/:rid", searchRecipeByID);
+    app.get("/api/api/recipeID/:rid", searchRecipeByID);
     app.get("/api/api/recipeAPI/:rid",getRecipeLikesAPIByID);
   };
   
