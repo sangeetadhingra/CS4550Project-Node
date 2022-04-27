@@ -39,6 +39,10 @@ export const likeRecipeDao = async (recipe) => {
   if (!existingRecipe) {
     createRecipeDao(recipe);
   }
+  recipeModel.updateOne(
+    { rid: recipe.rid },
+    { $set: { likes: recipe.likes + 1 } }
+  );
   const likes = existingRecipe ? existingRecipe.likes + 1 : 1;
   await recipeModel.updateOne({ rid: recipe.rid }, { $set: { likes: likes } });
   existingRecipe.likes++;
