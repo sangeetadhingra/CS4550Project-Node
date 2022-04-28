@@ -4,6 +4,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import userController from "./controllers/user-controller.js";
 import apiController from "./controllers/api-controller.js";
+import CommentsController from "./controllers/ comments-controller.js";
 import session from "express-session"
 
 const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || "mongodb://localhost:27017/webdev";
@@ -30,4 +31,5 @@ app.use(session(sess))
 recipeController(app);
 userController(app);
 apiController(app);
+CommentsController(app);
 app.listen(process.env.PORT || 4000);
