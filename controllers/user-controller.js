@@ -58,7 +58,6 @@ const signup = async (req, res) => {
   if (alreadyRegistered) {
     res.sendStatus(403);
   } else {
-    // TODO: Maybe do this a bit better
     if (newUser.securityKey === ADMIN_KEY) {
       newUser.role = "ADMIN";
     }
