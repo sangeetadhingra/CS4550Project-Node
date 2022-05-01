@@ -20,7 +20,6 @@ const postComment = async (req, res) => {
 const findCommentsByUserID = async (req, res) => {
   const userID = req.params.userID;
   const comments = await findCommentsByUser(userID);
-  console.log(comments);
   res.json(comments);
 };
 
@@ -35,7 +34,7 @@ const deleteComment = async (req, res) => {
   const userID = req.params.userID;
   const comment = await getCommentById(commentId);
   const user = await findUserById(userID);
-  if (user.role === "ADMIN" || comment.commenter.toString() === userID) {
+  if (comment && (user.role === "ADMIN" || comment.commenter.toString() === userID)) {
     await deleteCommentById(commentId);
     res.sendStatus(200);
   } else {

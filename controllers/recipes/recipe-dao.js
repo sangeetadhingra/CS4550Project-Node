@@ -34,7 +34,7 @@ export const updateRecipeDao = (recipeID, recipe) => {
   return 200;
 };
 export const likeRecipeDao = async (recipe) => {
-  console.log(recipe.rid)
+  console.log(recipe)
   let existingRecipe = await recipeModel.findOne({ rid: recipe.rid });
   if (!existingRecipe) {
     try {
@@ -53,6 +53,17 @@ export const likeRecipeDao = async (recipe) => {
   }
   return existingRecipe;
 };
+
+export const getRecipeLikes = async (recipeID) => {
+  const existingRecipe = await recipeModel.findOne({rid: recipeID});
+  if (existingRecipe) {
+    return  {
+      "likes" : existingRecipe.likes,
+      "dislikes" : existingRecipe.dislikes
+    }
+  }
+  
+}
 
 export const dislikeRecipeDao = async (recipe) => {
   let existingRecipe = await recipeModel.findOne({ rid: recipe.rid });

@@ -6,6 +6,7 @@ import {
   likeRecipeDao,
   dislikeRecipeDao,
   findRecipeByIdDao,
+  getRecipeLikes,
 } from "./recipes/recipe-dao.js";
 
 const createRecipe = async (req, res) => {
@@ -13,6 +14,13 @@ const createRecipe = async (req, res) => {
   const recipe = await createRecipeDao(newRecipe);
   res.json(recipe);
 };
+
+const getLikes = async (req, res) => {
+  console.log("Hi!" + req);
+  const recipeID = req.params.rid;
+  const recipeLikes = await getRecipeLikes(recipeID);
+  res.json(recipeLikes);
+}
 const findAllRecipes = async (req, res) => {
   const recipes = await findAllRecipesDao();
   res.json(recipes);
@@ -50,5 +58,6 @@ export default (app) => {
   app.put("/api/recipes/:rid", updateRecipe);
   app.delete("/api/recipes/:rid", deleteRecipe);
   app.put("/api/recipes/like/:rid", likeRecipe);
+  app.get("/api/recipes/likes/:rid", getLikes);
   app.put("/api/recipes/dislike/:rid", dislikeRecipe);
 };
